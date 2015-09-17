@@ -37,7 +37,8 @@
 		
 		if (!$donut){
 			$sqlMesaji = mysqli_error($GLOBALS['DB']);
-			die("<br>".islemDokumu()."de verilen sorguda hata var:<br>".$sqlMesaji[0]["message"]);
+            //new dBug($sqlMesaji);
+			die("<br>".islemDokumu()."de verilen sorguda hata var:<br>".$sqlMesaji);
 		}
 	
 		if (!mysql_num_rows($donut)){ // kayıt yoksa?

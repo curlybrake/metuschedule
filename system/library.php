@@ -22,18 +22,20 @@
 	//*** Hata ayıklama üzerine ***//
 	//
 	
-	function islemDokumu($sonFharic = 1, $sadeceSfonk = 0){// Amaç: Hata mesajlarında işlem dökümünü kullanarak daha rahat hata ayıklayabilmek
+	function islemDokumu($sonFharic = 0, $sadeceSfonk = 0){// Amaç: Hata mesajlarında işlem dökümünü kullanarak daha rahat hata ayıklayabilmek
 		$donut = '';
 		
 		$islemList = debug_backtrace();
 		$islemList = array_reverse($islemList);
 		
+        new dBug($islemList);
+        
 		$son = count($islemList) - $sonFharic - 1; // Son index, islemDokumu() fonksiyonu ve belirtilmişse son fonksiyonun döküme karışmasını önlemek için
 			
 		if (!$sadeceSfonk){
 			
 			for ($i = 0; $i < $son; $i++){
-				$donut .= "{".adrestenDosyaya($islemList[$i]["file"]).":".$islemList[$i]["line"]."}--> <b>".$islemList[$i]["function"]."()</b>";
+				$donut .= "{".adrestenDosyaya($islemList[$i]["file"]).":".$islemList[$i]["line"]." - <b>".$islemList[$i]["function"]."()</b>}--> ";
 			}
 		}
 		else{
