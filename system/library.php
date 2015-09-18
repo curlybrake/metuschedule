@@ -22,20 +22,57 @@
 	//*** Hata ayıklama üzerine ***//
 	//
 	
-	function islemDokumu($sonFharic = 0, $sadeceSfonk = 0){// Amaç: Hata mesajlarında işlem dökümünü kullanarak daha rahat hata ayıklayabilmek
+	function islemDokumu($message = "",$sonFharic = 0, $sadeceSfonk = 0){// Amaç: Hata mesajlarında işlem dökümünü kullanarak daha rahat hata ayıklayabilmek
 		$donut = '';
 		
 		$islemList = debug_backtrace();
 		$islemList = array_reverse($islemList);
 		
-        new dBug($islemList);
+        //new dBug($islemList);
         
 		$son = count($islemList) - $sonFharic - 1; // Son index, islemDokumu() fonksiyonu ve belirtilmişse son fonksiyonun döküme karışmasını önlemek için
-			
+		
+		$donut .= "<div style='border-radius:5px; background-color:#E9DCB0; 
+								-webkit-box-shadow: 2px 2px 10px 0px #E9DCB0;
+								-moz-box-shadow: 2px 2px 10px 0px #E9DCB0;
+								box-shadow: 2px 2px 10px 0px #E9DCB0;
+								padding: 10px 0 10px;
+								font-family: monospace;
+								'
+						>";
 		if (!$sadeceSfonk){
 			
 			for ($i = 0; $i < $son; $i++){
-				$donut .= "{".adrestenDosyaya($islemList[$i]["file"]).":".$islemList[$i]["line"]." - <b>".$islemList[$i]["function"]."()</b>}--> ";
+				$reflFunc = new ReflectionFunction($islemList[$i]["function"]);
+				$args = $islemList[$i]['args'];
+				$argtxt = "";
+				
+				if (count($args)){
+					//new dBug($args);
+					//new dBug(count($args));
+					
+					for ($k = 0; $k < count($args) - 1; $k++){
+						if (is_int($args[$k])){
+							$argtxt .= $args[$k].', ';
+						}
+						else{
+							$argtxt .= '"'.$args[$k].'", ';
+						}
+					}
+					if (is_int($args[count($args) - 1 ])){
+						$argtxt .= $args[count($args) - 1 ];
+					}
+					else{
+						$argtxt .= '"'.$args[count($args) - 1 ].'"';
+					}
+				}
+				
+				$donut .= "
+							<p style='margin: 10px'>"
+								.adrestenDosyaya($islemList[$i]["file"]).":".$islemList[$i]["line"]." --> "
+								.adrestenDosyaya($reflFunc->getFileName()) . ':' . $reflFunc->getStartLine().'-
+								<b>'.$islemList[$i]["function"]."(".$argtxt.")</b>
+							</p>";
 			}
 		}
 		else{
@@ -44,8 +81,8 @@
 		
 		
 		$sonIslem = end($islemList);
-		$sonDosya = adrestenDosyaya($islemList[$son-1]["file"]);
-		return $donut."[".$sonDosya."]: ";
+		//$sonDosya = adrestenDosyaya($islemList[$son-1]["file"]);
+		return $donut."<p style='margin:10px;'>".$message."</p></div>"; //"[".$sonDosya."]: ";
 	}
 	
     function adrestenDosyaya($adres){
