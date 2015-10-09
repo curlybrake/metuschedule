@@ -1,0 +1,23 @@
+
+# This allows you to redirect your entire website to any other domain
+#Redirect 302 / http://metulocation.com/ 
+
+<IfModule mod_rewrite.c>
+
+RewriteEngine On
+
+#RewriteRule ^([^/.]+)$ index.php
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^([^/.]+)$ index.php?sayfa=$1 [QSA,L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^detay/([^/.]+)$ index.php?detay=$1 [QSA,L]
+
+RewriteRule ^index\.php$ - [L]
+
+</IfModule> 
+
+ErrorDocument 404 /index.php

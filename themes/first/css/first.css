@@ -1,0 +1,68 @@
+@import url(https://fonts.googleapis.com/css?family=Ubuntu+Condensed);
+
+#background {
+    position: absolute;
+    opacity: 1;
+    width: 1600px;
+    height: 1600px;
+    left: -800px;
+    top: -900px;
+    background-image: url('../img/crepuscular_rays_in_the_woods_of_kasterlee_belgium_edited_glow.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.center{
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    z-index: -9;
+}
+
+body {
+    margin: 0px;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family: 'Ubuntu Condensed', sans-serif;
+}
+
+.content{
+    position: relative;
+    margin: 0 auto;
+    padding: 10px;
+    top: 100px;
+    width: 900px;
+    background-color: rgba(255,100,0,0.1);
+    opacity: 1;
+}
+
+#first table{
+    border-collapse: collapse;
+    width: 100%;
+    text-align: center;
+    border-radius: 5px;
+    background-color: rgba(255,255,255,0.8);
+}
+
+#first table tr{
+    height: 40px;
+}
+
+#first table td{
+    margin: 0px;
+    width: 90px;
+}
+
+#first table .dark{
+    background-color: rgba(255,100,0,0.1);
+}
+
+#first table .time{
+    width: 10%;
+    background-color: rgba(255,100,0,0.4);
+}
+
+#first table .head{
+    background-color: rgba(255,100,0,0.4);
+}
