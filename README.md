@@ -1,0 +1,3 @@
+# metuschedule
+
+ODTÜ ye yönelik
